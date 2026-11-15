@@ -25,6 +25,11 @@ public class Rutas {
                         .filters(f -> f.preserveHostHeader())
                         .uri("lb://PRODUCTO"))
 
+                // 3. Carrito
+                .route("carrito-service", r -> r.path("/api/carrito/**", "/api/carrito")
+                        .filters(f -> f.preserveHostHeader())
+                        .uri("lb://CARRITO"))
+
                 .build();
     }
     @Bean
