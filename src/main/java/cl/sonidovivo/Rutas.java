@@ -16,7 +16,7 @@ public class Rutas {
     public RouteLocator configurarRutas(RouteLocatorBuilder builder) {
         return builder.routes()
                 // 1. Categoria y Auth
-                .route("categoria-service", r -> r.path("/api/categoria/**", "/api/categoria", "/api/auth/**")
+                .route("categoria-service", r -> r.path("/api/categoria/**", "/api/categoria", "/api/auth/**", "/api/auth")
                         .filters(f -> f.preserveHostHeader())
                         .uri("lb://CATEGORIA"))
 
@@ -32,12 +32,14 @@ public class Rutas {
 
                 .build();
     }
+
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
         corsConfig.setAllowedMethods(Arrays.asList("*"));
         corsConfig.setAllowedHeaders(Arrays.asList("*"));
+        corsConfig.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
